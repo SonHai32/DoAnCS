@@ -14,6 +14,8 @@ class Login extends React.Component {
     
     }
     
+ 
+
     handleChange = event =>{
         this.setState({[event.target.name]: event.target.value})
     }
@@ -26,11 +28,10 @@ class Login extends React.Component {
             .auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(signinUser =>{
-            console.log('Sign in');
+            console.log('Sign in'); 
             this.setState({loading: false});
         })
         .catch(err =>{
-            console.log(err);
             this.setState({errors: this.state.errors.concat(err), loading: false })
         })
         }
@@ -50,7 +51,7 @@ class Login extends React.Component {
         return (
             <Grid textAlign="center" verticalAlign="middle" className="app">
                 <Grid.Column style={{maxWidth: 450}}>
-                    <Header as="h2" icon color="orange" textAlign="center">
+                    <Header as="h2" icon color="violet" textAlign="center">
                         Login
                     </Header>
                     <Form size="large" onSubmit={this.handleSubmit}>
@@ -59,11 +60,10 @@ class Login extends React.Component {
                             placeholder="Email address" type="text" onChange={this.handleChange} value={email} />
                             <Form.Input fluid name="password" icon="key" iconPosition="left"
                             placeholder="Password" type="password" onChange={this.handleChange} value={password} />
-                            <Button disabled={loading} className={loading ? 'loading' : ''} fluid size="large" color="orange">Login</Button>
+                            <Button disabled={loading} className={loading ? 'loading' : ''} fluid size="large" color="violet">Login</Button>
                             {errors.length > 0 &&(
                                 <Message color="red">
                                     <h3>Error</h3>
-                                    {console.log(errors)}
                                     {this.displayError(errors)}
                                 </Message>
                             )}

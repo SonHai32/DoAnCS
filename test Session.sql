@@ -1,0 +1,30 @@
+USE QLSINHVIEN
+
+
+
+--1 
+
+select * from SINHVIEN
+
+
+
+ALTER PROC sp_DSSV_KHOA (@tenkhoa nvarchar(30) = null)
+
+as if @tenkhoa is null
+BEGIN
+    print N'Bạn chưa nhập tên khoa'
+    return
+END
+
+SELECT  MASV,HOSV, TENSV,PHAI,NGAYSINH,NOISINH,HOCBONG,KH.MAKH,KH.TENKH
+FROM SINHVIEN SV, KHOA KH
+WHERE SV.MAKH = KH.MAKH AND KH.TENKH = @tenkhoa
+
+
+EXEC sp_DSSV_KHOA N'Tin Học'
+
+
+--2 
+
+SELECT MASV,HOSV, TENSV,PHAI,NGAYSINH,NOISINH,HOCBONG
+FROM SINHVIEN SV , KETQUA KQ

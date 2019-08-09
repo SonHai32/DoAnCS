@@ -92,27 +92,22 @@ class MessageForm extends React.Component{
                 this.state.uploadTask.on('state_changed', snap =>{
                     const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes)*100)
                     this.setState({percentUploaded});
+                this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL =>{
+                    this.sendFileMessage(downloadURL, ref, pathToUpload);
+                    
+                }).catch(err =>{
+                    
+                    this.setState({errors: this.state.errors.concat(err)})
+                })
                 })
             },
             err =>{
-                console.log(err);
+                
                 this.setState({errors: this.state.errors.concat(err),
                 uploadState: 'error',
                 uploadTask: null
                 })
-            }, 
-            () =>{
-                console.log('test')
-                this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL =>{
-                    console.log(downloadURL);
-                    this.sendFileMessage(downloadURL, ref, pathToUpload);
-                    
-                    
-                })
-                .catch(err =>{
-                    this.setState({errors: this.state.errors.concat(err)})
-                })
-            }
+             }
         
         )
     }
@@ -126,6 +121,7 @@ class MessageForm extends React.Component{
                 console.log(err);
                 this.setState({errors: this.state.errors.concat(err)})
             })
+        
     }
 
     render(){

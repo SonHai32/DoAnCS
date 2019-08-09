@@ -11,7 +11,11 @@ class Messages extends React.Component{
         channel: this.props.currentChannel,
         user: this.props.currentUser,
         messages: [],
-        messagesLoading: true
+        messagesLoading: true,
+        searchTerm: '',
+        searchLoading: false,
+        searchResults: []
+
     }
 
     componentDidMount(){
@@ -33,7 +37,8 @@ class Messages extends React.Component{
             this.setState({
                 messages: loadedMessages,
                 messagesLoading: false
-            })
+            });
+
               
         })
     }
@@ -48,26 +53,53 @@ class Messages extends React.Component{
         ))
     )
 
+    handleSearchChange = event =>{
+        this.setState({searchTerm: event.target.value,
+                       searchLoading: true
+        },
+        () => this.handleSearchMessages())
+    }
+
+    handleSearchMessages = () =>{
+        const channelMessage = [...this.state.messages];
+        const regex = new RegExp(this.state.searchTerm, 'gi');
+        const searchResults = channelMessage.reduce((acc,message) =>{
+            if( message.content && (message.content.match(regex) || message.user.name.match(regex)) ){
+                acc.push(message);
+            }
+            return acc;
+        },[]);
+        this.setState({ searchResults});
+        setTimeout(() => this.setState({searchLoading: false}), 1000);
+    }
+
+    displayChannelName = channel => channel ? ('#'+channel.name) : '';
+    
+
     render() {
 
-        const {messagesRef, channel, user, messages} = this.state;
+        const {messagesRef, channel, user, messages, searchResults,searchTerm, searchLoading} = this.state;
 
         return (
             <React.Fragment>
-                <MessagesHeader />
+                <MessagesHeader 
+                    channelName = {this.displayChannelName(channel)}
+                    handleSearchChange = {this.handleSearchChange}
+                    searchLoading = {searchLoading}
+                />
 
 
                 <Segment className="messages">
                     <Comment.Group >
-                        {this.displayMessage(messages)}
+                        {searchTerm ? this.displayMessage(searchResults) :
+                        this.displayMessage(messages)}
                     </Comment.Group>
                 </Segment>
 
                 <MessageForm 
                     messagesRef ={messagesRef}
                     currentChannel ={channel}
-                    currentUser = {user}
-                />
+                    currentUser = {user} />
             </React.Fragment>
         )
     }

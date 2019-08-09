@@ -27,3 +27,7 @@ body,
 .message__image {
     padding: 1em;
 }
+
+.direct__messages {
+    padding-top: 50px;
+}

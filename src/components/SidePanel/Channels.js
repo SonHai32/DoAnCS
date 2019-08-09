@@ -1,4 +1,4 @@
-import {Menu, Icon, Modal, Form, Input,Button} from 'semantic-ui-react'
+import {Menu, Icon, Modal, Form, Input,Button,Header} from 'semantic-ui-react'
 import React from 'react'
 import {connect} from 'react-redux'
 import {setCurrentChannel} from '../../action'
@@ -96,6 +96,7 @@ class Channels extends React.Component{
             onClick={() =>{this.changeChannel(channel)}}
             style={{opacity: 0.7}}
             active={channel.id === this.state.activeChannel}
+            
         >
             #{channel.name}
         </Menu.Item>
@@ -134,12 +135,22 @@ class Channels extends React.Component{
 
         return(
            <React.Fragment>
-                <Menu.Menu style={{paddingBottom: "2em"}} >
-                    <Menu.Item>
+               
+                <Header as="h4" block>
+                    <Header.Content>
+                    <span style={{margin:"0 5px"}}>
+                        <Icon  name="exchange" /> CHANNELS 
+                    </span>({channels.length}) 
+                    <Icon  name="add" style={{marginLeft: "20px",cursor: "pointer "}} onClick={this.openModal} />
+
+                    </Header.Content>
+                </Header>
+                <Menu.Menu style={{paddingTop:'20px' ,height: '600px', overflowY:'scroll'}} >
+                    {/* <Menu.Item >
                         <span>
                             <Icon name="exchange" /> CHANNELS 
                         </span>({channels.length}) <Icon name="add" style={{cursor: "pointer "}} onClick={this.openModal} />
-                    </Menu.Item>
+                    </Menu.Item> */}
                     {this.displayChannel(channels)}
 
                 </Menu.Menu>

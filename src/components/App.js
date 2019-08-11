@@ -7,6 +7,8 @@ import Messages from './Messages/Messages'
 import MetaPanel from './MetaPanel/MetaPanel'
 import {connect} from 'react-redux'
 
+import PopupMessage from './PopupMessage/PopupMessage'
+
 const App = ({currentUser, currentChannel}) =>(
   <Grid columns="equal" className="app" style={{background: '#eee'}}>
     <ColorPanel />
@@ -27,6 +29,10 @@ const App = ({currentUser, currentChannel}) =>(
     <Grid.Column width={4} >
       <MetaPanel />
     </Grid.Column>
+
+    <PopupMessage currentUser={currentUser}
+    
+    />
 
   </Grid>
 )

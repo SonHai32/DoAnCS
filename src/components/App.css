@@ -31,3 +31,17 @@ body,
 .direct__messages {
     padding-top: 50px;
 }
+
+.popup__message {
+    height: 450px;
+    width: 350px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.popup__message__btn {
+    position: fixed;
+    top: 85%;
+    left: 97%;
+    transform: translate(-50%, -50%)
+}

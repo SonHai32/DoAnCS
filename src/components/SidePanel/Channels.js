@@ -14,7 +14,9 @@ class Channels extends React.Component{
         channelDetail: '',
         errors: [],
         channelRef: firebase.database().ref('channels'),
+        messageRef: firebase.database().ref('messages'),
         firstLoad: true,
+        notification: []
     }
 
     componentWillMount(){
@@ -30,7 +32,13 @@ class Channels extends React.Component{
         this.state.channelRef.on("child_added", snap =>{
             loadedChannels.push(snap.val());
             this.setState({channels: loadedChannels}, () => this.setFirstChannel());
-        })
+            this.addNotificationListener(snap.key)
+        });
+        
+    }
+
+    addNotificationListener = (channelId) => {
+
     }
 
     removeListeners = () =>{
@@ -105,6 +113,9 @@ class Channels extends React.Component{
     changeChannel = channel =>{
         this.setActiveChannel(channel);
         this.props.setCurrentChannel(channel);
+        this.setState({channel});
+        this.props.setPrivateChannel(false);
+
     }
     
     setActiveChannel = channel =>{

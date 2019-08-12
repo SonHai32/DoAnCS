@@ -1,12 +1,12 @@
 import React from 'react'
-import {Segment, Accordion, Header, Icon} from 'semantic-ui-react'
+import {Segment, Accordion, Header, Icon, Image} from 'semantic-ui-react'
 
 class MetaPanel extends React.Component{
 
     state = {
         activeIndex: 0,
-        privateChannel: this.props.isPrivateChannel,
-
+        privateChannel: this.props.isPrivateChannel,    
+        channel: this.props.currentChannel
         
     }
 
@@ -17,16 +17,18 @@ class MetaPanel extends React.Component{
         this.setState({activeIndex: newIndex});
     }
 
+
     render(){
 
-        const {activeIndex, privateChannel} = this.state;
+        const {activeIndex, privateChannel, channel} = this.state;
 
         if(privateChannel) return null;
 
         return(
-            <Segment>
+            <Segment loading={!channel}> 
+              
                 <Header as="h3" attached="top">
-                    About # channel
+                    About # {channel && channel.name}
                 </Header>
                 <Accordion styled attached="true">
                     <Accordion.Title
@@ -39,7 +41,7 @@ class MetaPanel extends React.Component{
                         Channel Detail
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex ===0}>
-                        Channel Detail
+                       {channel && channel.detail }
                     </Accordion.Content>    
                     <Accordion.Title
                         active={activeIndex ===1}
@@ -48,7 +50,7 @@ class MetaPanel extends React.Component{
                     >
                         <Icon name='dropdown' />
                         <Icon name="user circle" />
-                        Channel Detail
+                        Top Poster
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex ===1}>
                          Detail
@@ -63,7 +65,10 @@ class MetaPanel extends React.Component{
                         Create By
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex ===2}>
-                        Detais
+                        <Header as="h3" color="teal">
+                            <Image circular src={channel && channel.createdBy.avatar} /> 
+                            {channel  && '@' +channel.createdBy.name }
+                        </Header>
                     </Accordion.Content>    
                 </Accordion>
             </Segment>

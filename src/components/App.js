@@ -30,7 +30,9 @@ const App = ({currentUser, currentChannel, isPrivateChannel}) =>(
     <Grid.Column width={4} >
       <MetaPanel 
       key={currentChannel && currentChannel.id}
-      isPrivateChannel={isPrivateChannel} />
+      isPrivateChannel={isPrivateChannel} 
+      currentChannel={currentChannel}
+      />
     </Grid.Column>
 
     <PopupMessage currentUser={currentUser}

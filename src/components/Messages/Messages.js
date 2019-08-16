@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {setUserPosts} from '../../action'
 import {Segment, Comment} from 'semantic-ui-react'
 import firebase from '../../firebase'
 import MessagesHeader from './MessagesHeader'
@@ -44,8 +46,23 @@ class Messages extends React.Component{
                 messagesLoading: false
             });
 
-              
+            this.countUserPost(loadedMessages);
         })
+    }
+
+    countUserPost = messagses =>{
+        let userPosts = messagses.reduce((acc, messagse) =>{
+            if(messagse.user.name in acc){
+                acc[messagse.user.name].count +=1;
+            }else{
+                acc[messagse.user.name]={
+                    avatar: messagse.user.avatar,
+                    count: 1
+                }
+            }
+            return acc;
+        },{})
+        this.props.setUserPosts(userPosts);
     }
 
     displayMessage = messages =>(
@@ -121,4 +138,4 @@ class Messages extends React.Component{
     }
 }
 
-export default Messages
+export default connect(null , {setUserPosts})(Messages)

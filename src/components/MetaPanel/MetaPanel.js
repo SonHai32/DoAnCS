@@ -19,9 +19,9 @@ class MetaPanel extends React.Component{
 
    
 
-    displayTopPoster = posts =>{
+    displayTopPoster = posts =>
         Object.entries(posts)
-            .sort((a,b) => b[1] - a[1] )
+            .sort((a, b) => b[1] - a[1] )
             .map(([key, val], i) =>(
                 <List.Item key={i}>
                     <Image avatar src={val.avatar} />
@@ -32,7 +32,8 @@ class MetaPanel extends React.Component{
                 </List.Item>
             ))
             .slice(0, 5)
-    }
+       
+    
 
 
     render(){
@@ -71,9 +72,10 @@ class MetaPanel extends React.Component{
                         Top Posters 
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex ===1}>
-                         <List>
+                        <List>
                             {userPosts && this.displayTopPoster(userPosts)}
-                         </List>
+                        </List>
+                         
                     </Accordion.Content>
                     <Accordion.Title
                         active={activeIndex ===2}

@@ -218,7 +218,7 @@ class Channels extends React.Component{
                 <Header as="h4" block>
                     <Header.Content>
                     <span style={{margin:"0 5px"}}>
-                        <Icon  name="exchange" /> CHANNELS 
+                        <Icon  name="exchange" /> Phòng Chat 
                     </span>({channels.length}) 
                     <Icon  name="add" style={{marginLeft: "20px",cursor: "pointer "}} onClick={this.openModal} />
 

@@ -11,7 +11,6 @@ import PopupMessage from './PopupMessage/PopupMessage'
 
 const App = ({currentUser, currentChannel, isPrivateChannel, userPosts}) =>(
   <Grid columns="equal" className="app" style={{background: '#eee'}}>
-    <ColorPanel />
 
     <SidePanel 
       currentUser={currentUser}
@@ -36,8 +35,7 @@ const App = ({currentUser, currentChannel, isPrivateChannel, userPosts}) =>(
       />
     </Grid.Column>
 
-    <PopupMessage currentUser={currentUser}
-    />
+    
 
   </Grid>
 )

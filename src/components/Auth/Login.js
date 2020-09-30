@@ -52,12 +52,12 @@ class Login extends React.Component {
             <Grid textAlign="center" verticalAlign="middle" className="app">
                 <Grid.Column style={{maxWidth: 450}}>
                     <Header as="h2" icon color="violet" textAlign="center">
-                        Login
+                        Đăng Nhập
                     </Header>
                     <Form size="large" onSubmit={this.handleSubmit}>
                         <Segment stacked>
                             <Form.Input fluid name="email" icon="mail" iconPosition="left"
-                            placeholder="Email address" type="text" onChange={this.handleChange} value={email} />
+                            placeholder="Địa chỉ email" type="text" onChange={this.handleChange} value={email} />
                             <Form.Input fluid name="password" icon="key" iconPosition="left"
                             placeholder="Password" type="password" onChange={this.handleChange} value={password} />
                             <Button disabled={loading} className={loading ? 'loading' : ''} fluid size="large" color="violet">Login</Button>
@@ -68,7 +68,7 @@ class Login extends React.Component {
                                 </Message>
                             )}
                             <Message>
-                                You don't have an account ? <Link to="/register"> Register</Link>
+                                 Bạn chưa có tài khoản đăng ký ngay ? <Link to="/register"> Đăng Ký</Link>
                             </Message>
                         </Segment>
 

@@ -93,6 +93,7 @@ class MessageForm extends React.Component{
         const pathToUpload = this.state.channel.id;
         const ref = this.props.getMessagesRef();
         const filePath  = this.getPath() +'/'+uuiv4()+'.jpg'
+        console.log(metadata)
 
         this.setState({
             uploadState: 'uploading',
@@ -134,6 +135,12 @@ class MessageForm extends React.Component{
         
     }
 
+    chatKeyPress = (event) =>{
+        console.log(event.keyCode)
+        if(event.keyCode == 13)
+        this.sendMessage()
+    }
+
     render(){
         const {errors,message,loading,modal} = this.state;
         return(
@@ -141,11 +148,12 @@ class MessageForm extends React.Component{
                 <Input 
                     fluid
                     name="message"
+                    onKeyPress={this.chatKeyPress}
                     onChange={this.handleChange}
                     style={{marginBottom: '0.7em'}}
                     label={<Button icon={"add"} />}
                     labelPosition="left"
-                    placeholder="Write Your Message"
+                    placeholder="Nhập tin nhắn"
                     className={
                         errors.some(error => error.message.includes('message')) ? "error" : ""
                     }
@@ -154,7 +162,7 @@ class MessageForm extends React.Component{
                 <Button.Group icon widths="2">
                     <Button 
                         color="orange"
-                        content="Add Reply"
+                        content="Trả lời"
                         labelPosition ="left"
                         icon="edit"
                         onClick={this.sendMessage}
@@ -162,7 +170,7 @@ class MessageForm extends React.Component{
                     />
                     <Button 
                         color="teal"
-                        content="Upload Media"
+                        content="Tải ảnh lên"
                         labelPosition="right"
                         icon="cloud upload"
                         onClick={this.openModal}

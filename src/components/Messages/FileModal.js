@@ -3,29 +3,27 @@ import {Modal, Input, Icon, Button} from 'semantic-ui-react'
 class FileModal extends React.Component{
 
     state = {file : null,
-            authorized: ['image/jpge', 'image/png']
+            authorized: ['image/jpge', 'image/png', 'image/jpg']
     }
 
     addFile = event => {
         const file = event.target.files[0];
         if(file){
             this.setState({file})
-            console.log(file.type)
         }
     }
 
     sendFile = () =>{
         const {file} = this.state;
         const { uploadFile,closeModal } = this.props;
-        if(file !== null){
-            if(this.isAuthorized(file.type)){
+        if(file){
+            console.log(this.state.authorized.includes(file.type))
                 // send file
-
+                console.log("aa")
                 const metadata = { contentType: file.type }
                 uploadFile(file, metadata);
                 closeModal();
                 this.clearFile();
-            }
         }
     }
 

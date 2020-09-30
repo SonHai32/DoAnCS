@@ -27,7 +27,7 @@ class MetaPanel extends React.Component{
                     <Image avatar src={val.avatar} />
                     <List.Content>
                         <List.Header as="a">{key}</List.Header>
-                        <List.Description>{val.count} posts</List.Description>
+                        <List.Description>{val.count} Tin       </List.Description>
                     </List.Content>
                 </List.Item>
             ))
@@ -57,7 +57,7 @@ class MetaPanel extends React.Component{
                     >
                         <Icon name='dropdown' />
                         <Icon name="info" />
-                        Channel Detail
+                        Thông tin phòng chat
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex ===0}>
                        {channel && channel.detail }
@@ -69,7 +69,7 @@ class MetaPanel extends React.Component{
                     >
                         <Icon name='dropdown' />
                         <Icon name="user circle" />
-                        Top Posters 
+                        Top tin nhắn 
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex ===1}>
                         <List>
@@ -84,7 +84,7 @@ class MetaPanel extends React.Component{
                     >
                         <Icon name='dropdown' />
                         <Icon name="pencil alternate" />
-                        Create By
+                        Được tạo bởi 
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex ===2}>
                         <Header as="h3" color="teal">

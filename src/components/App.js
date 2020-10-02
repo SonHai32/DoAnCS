@@ -9,8 +9,17 @@ import {connect} from 'react-redux'
 
 import PopupMessage from './PopupMessage/PopupMessage'
 
+const myStyles = {
+  mainContainer: {
+    backgroundImage: 'linear-gradient(120deg, #f093fb 0%, #f5576c 100%)',
+    height: '102vh',
+
+  }
+}
 const App = ({currentUser, currentChannel, isPrivateChannel, userPosts}) =>(
-  <Grid columns="equal" className="app" style={{background: '#eee'}}>
+  <div style={myStyles.mainContainer}>
+
+  <Grid columns="equal" className="app" >
 
     <SidePanel 
       currentUser={currentUser}
@@ -38,6 +47,7 @@ const App = ({currentUser, currentChannel, isPrivateChannel, userPosts}) =>(
     
 
   </Grid>
+  </div>
 )
 
 const mapStateToProps = state =>({

@@ -140,9 +140,10 @@ class Channels extends React.Component{
             name={channel.name}
             onClick={() =>{this.changeChannel(channel)}}
             active={this.isActiveChannel(channel.id)}
-            color ='orange'
-            style={{color:'black', fontSize:'16px'}}
+            color ='teal'
+            style={{fontSize:'16px'}}
         >
+            <Icon name='home' ></Icon>
             {this.getNotificationCount(channel) && (
                 <Label color="red">{this.getNotificationCount(channel)}</Label>
             )}
@@ -215,22 +216,23 @@ class Channels extends React.Component{
         return(
            <React.Fragment>
                
-                <Header as="h4" block>
+                <Header as="h4" block color='green'>
                     <Header.Content>
-                    <span style={{margin:"0 5px"}}>
-                        <Icon  name="exchange" /> Phòng Chat 
-                    </span>({channels.length}) 
+                    <span style={{marginLeft: 'auto'}}>
+                        <Icon  name="mail outline" /> Phòng Chat 
+                    </span> 
+                    <span style={{color: '#d63031'}}>
+ &emsp; ({channels.length})
+                    </span>
                     <Icon  name="add" style={{marginLeft: "20px",cursor: "pointer "}} onClick={this.openModal} />
 
                     </Header.Content>
                 </Header>
-                <Menu style={{background:'none'}} inverted vertical >
-                <Menu.Menu style={{paddingTop:'20px' ,height: '600px', overflowY:'scroll' }} >
+                <Menu.Menu  >
                     
                     {this.displayChannel(channels)}
 
                 </Menu.Menu>
-                </Menu>
                 
         <Modal basic open={modal} onClose={this.closeModal}>
             <Modal.Header>Add a Channel</Modal.Header>

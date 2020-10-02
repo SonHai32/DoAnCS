@@ -19,7 +19,6 @@ class FileModal extends React.Component{
         if(file){
             console.log(this.state.authorized.includes(file.type))
                 // send file
-                console.log("aa")
                 const metadata = { contentType: file.type }
                 uploadFile(file, metadata);
                 closeModal();

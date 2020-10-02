@@ -44,7 +44,7 @@ class MetaPanel extends React.Component{
         if(privateChannel) return null;
 
         return(
-            <Segment loading={!channel}>
+            <Segment loading={!channel} style={{marginTop: 20, marginRight: 20}}>
 
                 <Header as="h3" attached="top">
                     About # {channel && channel.name}

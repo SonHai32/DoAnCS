@@ -1,14 +1,14 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {setUserPosts} from '../../action'
-import {Segment, Comment} from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { setUserPosts } from '../../action'
+import { Segment, Comment, Container } from 'semantic-ui-react'
 import firebase from '../../firebase'
 import MessagesHeader from './MessagesHeader'
 import MessageForm from './MessageForm'
 import Message from './Message'
-class Messages extends React.Component{
+class Messages extends React.Component {
 
-    state={
+    state = {
         privateChannel: this.props.isPrivateChannel,
         messagesRef: firebase.database().ref('messages'),
         privateMessagesRef: firebase.database().ref('privateMessages'),
@@ -22,24 +22,24 @@ class Messages extends React.Component{
 
     }
 
-    componentDidMount(){
-        const{channel, user} = this.state;
+    componentDidMount() {
+        const { channel, user } = this.state;
 
-        if(channel && user){
+        if (channel && user) {
             this.addListener(channel.id);
         }
     }
-    
-    
 
-    addListener = channelId =>{
+
+
+    addListener = channelId => {
         this.addMessageListener(channelId);
     }
 
     addMessageListener = channelId => {
         let loadedMessages = [];
         const ref = this.getMessagesRef();
-        ref.child(channelId).on('child_added', snap =>{
+        ref.child(channelId).on('child_added', snap => {
             loadedMessages.push(snap.val());
             this.setState({
                 messages: loadedMessages,
@@ -50,23 +50,23 @@ class Messages extends React.Component{
         })
     }
 
-    countUserPost = messagses =>{
-        let userPosts = messagses.reduce((acc, messagse) =>{
-            if(messagse.user.name in acc){
-                acc[messagse.user.name].count +=1;
-            }else{
-                acc[messagse.user.name]={
+    countUserPost = messagses => {
+        let userPosts = messagses.reduce((acc, messagse) => {
+            if (messagse.user.name in acc) {
+                acc[messagse.user.name].count += 1;
+            } else {
+                acc[messagse.user.name] = {
                     avatar: messagse.user.avatar,
                     count: 1
                 }
             }
             return acc;
-        },{})
+        }, {})
         this.props.setUserPosts(userPosts);
     }
 
-    displayMessage = messages =>(
-        messages.length > 0 && messages.map(message =>(
+    displayMessage = messages => (
+        messages.length > 0 && messages.map(message => (
             <Message
                 key={message.timestamp}
                 message={message}
@@ -75,67 +75,72 @@ class Messages extends React.Component{
         ))
     )
 
-    handleSearchChange = event =>{
-        this.setState({searchTerm: event.target.value,
-                       searchLoading: true
+    handleSearchChange = event => {
+        this.setState({
+            searchTerm: event.target.value,
+            searchLoading: true
         },
-        () => this.handleSearchMessages())
+            () => this.handleSearchMessages())
     }
 
-    handleSearchMessages = () =>{
+    handleSearchMessages = () => {
         const channelMessage = [...this.state.messages];
         const regex = new RegExp(this.state.searchTerm, 'gi');
-        const searchResults = channelMessage.reduce((acc,message) =>{
-            if( message.content && (message.content.match(regex) || message.user.name.match(regex)) ){
+        const searchResults = channelMessage.reduce((acc, message) => {
+            if (message.content && (message.content.match(regex) || message.user.name.match(regex))) {
                 acc.push(message);
             }
             return acc;
-        },[]);
-        this.setState({ searchResults});
-        setTimeout(() => this.setState({searchLoading: false}), 1000);
+        }, []);
+        this.setState({ searchResults });
+        setTimeout(() => this.setState({ searchLoading: false }), 1000);
     }
 
     displayChannelName = channel => {
-        return channel ? ((this.state.privateChannel ?  '@' : '#') + channel.name) : ''
+        return channel ? ((this.state.privateChannel ? '@' : '#') + channel.name) : ''
     }
-    
 
-    getMessagesRef = () =>{
-        const {messagesRef, privateMessagesRef, privateChannel} = this.state;
+
+    getMessagesRef = () => {
+        const { messagesRef, privateMessagesRef, privateChannel } = this.state;
         return privateChannel ? privateMessagesRef : messagesRef;
     }
 
+
+
+    
     render() {
 
-        const {messagesRef, channel, user, messages, searchResults,searchTerm, searchLoading, privateChannel} = this.state;
+        const { messagesRef, channel, user, messages, messagesLoading, searchResults, searchTerm, searchLoading, privateChannel } = this.state;
 
         return (
-            <React.Fragment>
-                <MessagesHeader 
-                    channelName = {this.displayChannelName(channel)}
-                    handleSearchChange = {this.handleSearchChange}
-                    searchLoading = {searchLoading}
-                    isPrivateChannel = {privateChannel}
+            <Container style={{ height: '100%' }}>
+                <MessagesHeader
+                    channelName={this.displayChannelName(channel)}
+                    handleSearchChange={this.handleSearchChange}
+                    searchLoading={searchLoading}
+                    isPrivateChannel={privateChannel}
                 />
 
 
-                <Segment className="messages">
+                <Segment className="messages" style={{marginTop: 60}} loading={messagesLoading}>
                     <Comment.Group >
                         {searchTerm ? this.displayMessage(searchResults) :
-                        this.displayMessage(messages)}
+                            this.displayMessage(messages)}
                     </Comment.Group>
                 </Segment>
 
-                <MessageForm 
-                    messagesRef ={messagesRef}
-                    currentChannel ={channel}
-                    currentUser = {user} 
+                <MessageForm
+                    messagesRef={messagesRef}
+                    currentChannel={channel}
+                    currentUser={user}
                     isPrivateChannel={privateChannel}
-                    getMessagesRef = {this.getMessagesRef}
-                    />
-            </React.Fragment>
+                    getMessagesRef={this.getMessagesRef}
+                />
+
+            </Container>
         )
     }
 }
 
-export default connect(null , {setUserPosts})(Messages)
+export default connect(null, { setUserPosts })(Messages)

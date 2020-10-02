@@ -11,10 +11,9 @@ class SidePanel extends React.Component{
         return (
             <Menu
                 size="large"
-                inverted
                 fixed="left"
                 vertical
-                style={{background: "#7AF8FF", fontSize: "1.2rem",}}
+                style={{background: "#81ecec", fontSize: "1.2rem",}}
             >
             <UserPanel currentUser={currentUser} />
             <Channels currentUser={currentUser} />

@@ -7,7 +7,7 @@
         const {channelName, handleSearchChange, searchLoading, isPrivateChannel} = this.props;
 
          return(
-            <Segment clearing>
+            <Segment clearing style={{marginTop: 20}}>
                 <Header fluid="true" as="h2" floated="left" style={{marginBottom: 0}} >
                 <span>
                     {channelName} {!isPrivateChannel && <Icon name={"star outline"} color="black" />}        
